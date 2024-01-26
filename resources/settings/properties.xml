@@ -1,0 +1,40 @@
+<!--
+    This file is part of Lost and Found widget.
+    https://github.com/okdar/lostandfound
+
+    Lost and Found is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Lost and Found is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Lost and Found. If not, see <https://www.gnu.org/licenses/gpl.html>.
+-->
+
+<resources>
+
+    <properties>
+        <property id="phone" type="string"></property>
+        <property id="email" type="string"></property>
+    </properties>
+
+    <strings>
+        <string id="phone">Phone number</string>
+        <string id="email">Email</string>
+    </strings>
+
+    <settings>
+        <setting propertyKey="@Properties.phone" title="@Strings.phone">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+        <setting propertyKey="@Properties.email" title="@Strings.email">
+            <settingConfig type="alphaNumeric"/>
+        </setting>
+    </settings>
+
+</resources>
