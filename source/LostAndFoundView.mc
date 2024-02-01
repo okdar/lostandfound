@@ -21,8 +21,16 @@ import Toybox.WatchUi;
 
 class LostAndFoundView extends WatchUi.View {
 
+    var msg1;
+    var msg2;
+    var msg3;
+    var recalculateRatio;
+
     function initialize() {
         View.initialize();
+        msg1 = WatchUi.loadResource($.Rez.Strings.msg1);
+        msg2 = WatchUi.loadResource($.Rez.Strings.msg2);
+        msg3 = WatchUi.loadResource($.Rez.Strings.msg3);
     }
 
     // Load your resources here
@@ -37,52 +45,48 @@ class LostAndFoundView extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc as Dc) as Void {
-        var app = Application.getApp();
         var screenRadius = dc.getWidth() / 2;
-        var font;
-
-        //TINY font for screen resolution 240 and lower, SMALL for higher resolution
-        if (screenRadius <= 120) {
-            font = Graphics.FONT_TINY;
-        } else {
-            font = Graphics.FONT_SMALL;
-        }
-
-        var phone = app.getProperty("phone");
-        if (phone == null || phone.equals("")) {
-            phone = "<missing phone number>";
-        }
-
-        var email = app.getProperty("email");
-        if (email == null || email.equals("")) {
-            email = "<missing email>";
-        }
-
-        var hrTextDimension = dc.getTextDimensions(phone, font);
+        recalculateRatio = dc.getWidth() / 260.0;
+        var phone = Application.getApp().getProperty("phone");
+        var email = Application.getApp().getProperty("email");
 
         //clean the screen
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
         dc.fillCircle(screenRadius, screenRadius, screenRadius * 2.5);
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(screenRadius, screenRadius - (2.8 * hrTextDimension[1]), font, "If found, contact:", Graphics.TEXT_JUSTIFY_CENTER);
-
-        if (hrTextDimension[0] > screenRadius * 2) {
-            dc.drawText(screenRadius, screenRadius - (hrTextDimension[1]) - 8, Graphics.FONT_XTINY, phone, Graphics.TEXT_JUSTIFY_CENTER);
+        if (msg2.equals("")) {
+            drawMessage(dc, msg1, screenRadius, recalculateCoordinate(45), recalculateCoordinate(230));
         } else {
-            dc.drawText(screenRadius, screenRadius - (hrTextDimension[1]) - 8, font, phone, Graphics.TEXT_JUSTIFY_CENTER);
+            drawMessage(dc, msg1, screenRadius, recalculateCoordinate(30), recalculateCoordinate(210));
+            drawMessage(dc, msg2, screenRadius, recalculateCoordinate(58), recalculateCoordinate(240));
         }
-
-        hrTextDimension = dc.getTextDimensions(email, font);
-        if (hrTextDimension[0] > screenRadius * 2) {
-            dc.drawText(screenRadius, screenRadius + 8, Graphics.FONT_XTINY, email, Graphics.TEXT_JUSTIFY_CENTER);
-        } else {
-            dc.drawText(screenRadius, screenRadius + 8, font, email, Graphics.TEXT_JUSTIFY_CENTER);
-        }
-        
-        dc.drawText(screenRadius, screenRadius + (2 * hrTextDimension[1]), font, "Thank you!", Graphics.TEXT_JUSTIFY_CENTER);
+        drawMessage(dc, phone, screenRadius, recalculateCoordinate(105), recalculateCoordinate(260));
+        drawMessage(dc, email, screenRadius, recalculateCoordinate(138), recalculateCoordinate(260));
+        drawMessage(dc, msg3, screenRadius, recalculateCoordinate(205), recalculateCoordinate(220));
     }
 
+    function drawMessage(dc, msg, screenRadius, posY, width) {
+        var font = Graphics.FONT_SMALL;
+        var textDimension = dc.getTextDimensions(msg, font);
+
+        if (textDimension[0] > width) {
+            font = Graphics.FONT_TINY;
+            textDimension = dc.getTextDimensions(msg, font);
+            if (textDimension[0] > width) {
+                font = Graphics.FONT_XTINY;
+            }
+        }
+
+        dc.drawText(screenRadius, posY, font, msg, Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    //coordinates are optimized for 260x260 resolution (vivoactive4)
+    //this method recalculates coordinates for watches with different resolution
+    function recalculateCoordinate(coordinate) {
+        return (coordinate * recalculateRatio).toNumber(); //vivoactive4 resolution = 1
+    }
+    
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
     // memory.

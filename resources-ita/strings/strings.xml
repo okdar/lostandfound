@@ -16,28 +16,13 @@
     along with Lost and Found. If not, see <https://www.gnu.org/licenses/gpl.html>.
 -->
 
-<resources>
+<strings>
+    <string id="AppName">Lost and Found</string>
 
-    <properties>
-        <property id="phone" type="string"></property>
-        <property id="email" type="string"></property>
-    </properties>
+    <string id="msg1">Se trovato, contatta:</string>
+    <string id="msg2"></string>
+    <string id="msg3">Grazie!</string>
+    <string id="phone">Numero di telefono</string>
+    <string id="email">Indirizzo email</string>
 
-    <strings>
-        <string id="msg1">If found, contact:</string>
-        <string id="msg2"></string>
-        <string id="msg3">Thank you!</string>
-        <string id="phone">Phone number</string>
-        <string id="email">Email</string>
-    </strings>
-
-    <settings>
-        <setting propertyKey="@Properties.phone" title="@Strings.phone">
-            <settingConfig type="alphaNumeric"/>
-        </setting>
-        <setting propertyKey="@Properties.email" title="@Strings.email">
-            <settingConfig type="alphaNumeric"/>
-        </setting>
-    </settings>
-
-</resources>
+</strings>
