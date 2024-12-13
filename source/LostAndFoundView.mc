@@ -63,7 +63,7 @@ class LostAndFoundView extends WatchUi.View {
         }
         drawMessage(dc, phone, screenRadius, recalculateCoordinate(105), recalculateCoordinate(260));
         drawMessage(dc, email, screenRadius, recalculateCoordinate(138), recalculateCoordinate(260));
-        drawMessage(dc, msg3, screenRadius, recalculateCoordinate(205), recalculateCoordinate(220));
+        drawMessage(dc, msg3, screenRadius, recalculateCoordinate(195), recalculateCoordinate(220));
     }
 
     function drawMessage(dc, msg, screenRadius, posY, width) {
