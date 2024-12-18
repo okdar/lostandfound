@@ -35,10 +35,17 @@ class LostAndFoundApp extends Application.AppBase {
     }
 
     // Return the initial view of your application here
-    function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new LostAndFoundView() ] as Array<Views or InputDelegates>;
+    function getInitialView() {
+        return [ new LostAndFoundWidgetView() ];
     }
 
+    (:glance)
+    function getGlanceView() {
+        if (WatchUi has :GlanceView) {
+            return [ new LostAndFoundGlanceView() ];
+        }
+        return null;
+    }
 }
 
 function getApp() as LostAndFoundApp {

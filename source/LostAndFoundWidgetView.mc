@@ -19,7 +19,7 @@
 import Toybox.Graphics;
 import Toybox.WatchUi;
 
-class LostAndFoundView extends WatchUi.View {
+class LostAndFoundWidgetView extends WatchUi.View {
 
     var msg1;
     var msg2;
